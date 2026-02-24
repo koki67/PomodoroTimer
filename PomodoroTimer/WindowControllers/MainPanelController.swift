@@ -21,7 +21,7 @@ final class MainPanelController {
     private let blendAlpha: CGFloat  = 0.7
     private let normalAlpha: CGFloat = 1.0
     private let panelWidth: CGFloat  = 280
-    private let panelHeight: CGFloat = 220
+    private let panelHeight: CGFloat = 260
 
     // UserDefaults key for panel position persistence
     private let frameKey = "MainPanelFrame"
@@ -114,9 +114,15 @@ final class MainPanelController {
         panel.contentView = hosting
 
         // Restore saved position or place near top-right of main screen.
+        // Clamp height to panelHeight to migrate frames saved with the old smaller size.
         if let saved = UserDefaults.standard.string(forKey: frameKey) {
             let frame = NSRectFromString(saved)
-            if frame != .zero { panel.setFrame(frame, display: false) }
+            if frame != .zero {
+                let migratedSize = NSSize(width: frame.width,
+                                         height: max(frame.height, panelHeight))
+                panel.setFrame(NSRect(origin: frame.origin, size: migratedSize),
+                               display: false)
+            }
         } else {
             placeInitially(panel: panel)
         }
