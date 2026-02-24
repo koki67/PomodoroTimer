@@ -1,0 +1,80 @@
+name: PomodoroTimer
+options:
+  bundleIdPrefix: com.koki
+  deploymentTarget:
+    macOS: "14.0"
+  defaultConfig: Debug
+  xcodeVersion: "16.0"
+  groupSortPosition: top
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: 6.0
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: 1
+    PRODUCT_BUNDLE_IDENTIFIER: com.koki.PomodoroTimer
+    INFOPLIST_FILE: PomodoroTimer/Resources/Info.plist
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+
+targets:
+  PomodoroTimer:
+    type: application
+    platform: macOS
+    sources:
+      - path: PomodoroTimer
+        excludes:
+          - Resources/Info.plist
+    resources:
+      - path: PomodoroTimer/Resources
+        excludes:
+          - Info.plist
+    settings:
+      base:
+        PRODUCT_NAME: PomodoroTimer
+        INFOPLIST_FILE: PomodoroTimer/Resources/Info.plist
+        ENABLE_APP_SANDBOX: NO
+        CODE_SIGN_ENTITLEMENTS: PomodoroTimer/Resources/PomodoroTimer.entitlements
+        SWIFT_STRICT_CONCURRENCY: targeted
+
+  PomodoroTimerTests:
+    type: bundle.unit-test
+    platform: macOS
+    # Compile tested types directly into the test bundle to avoid:
+    # - TEST_HOST: SwiftUI @main causes "NSApplication double-init" crash
+    # - BUNDLE_LOADER: fails because test bundle can't link SwiftUICore
+    sources:
+      - PomodoroTimerTests
+      - path: PomodoroTimer/Core/TimerEngine
+      - path: PomodoroTimer/Core/Services/PersistenceService.swift
+      - path: PomodoroTimer/Models
+      - path: PomodoroTimer/Utilities/CSVExporter.swift
+    settings:
+      base:
+        TEST_HOST: ""
+        BUNDLE_LOADER: ""
+        SWIFT_STRICT_CONCURRENCY: targeted
+
+schemes:
+  PomodoroTimer:
+    build:
+      targets:
+        PomodoroTimer: all
+        PomodoroTimerTests: testing
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - PomodoroTimerTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
