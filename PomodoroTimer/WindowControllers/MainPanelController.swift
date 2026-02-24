@@ -17,11 +17,10 @@ final class MainPanelController {
 
     // Blend-into-work parameters
     private var blendTimer: Timer?
-    private let blendAlpha: CGFloat   = 0.7
-    private let normalAlpha: CGFloat  = 1.0
-    private let compactHeight: CGFloat  = 110
-    private let expandedHeight: CGFloat = 220
-    private let panelWidth: CGFloat     = 280
+    private let blendAlpha: CGFloat  = 0.7
+    private let normalAlpha: CGFloat = 1.0
+    private let panelWidth: CGFloat  = 280
+    private let panelHeight: CGFloat = 220
 
     // UserDefaults key for panel position persistence
     private let frameKey = "MainPanelFrame"
@@ -88,7 +87,7 @@ final class MainPanelController {
     // MARK: - Private
 
     private func buildPanel() {
-        let contentRect = NSRect(x: 0, y: 0, width: panelWidth, height: expandedHeight)
+        let contentRect = NSRect(x: 0, y: 0, width: panelWidth, height: panelHeight)
         let panel = NSPanel(
             contentRect: contentRect,
             styleMask: [.borderless, .nonactivatingPanel, .resizable],
@@ -127,7 +126,7 @@ final class MainPanelController {
         guard let screen = NSScreen.main else { panel.center(); return }
         let screenFrame = screen.visibleFrame
         let x = screenFrame.maxX - panelWidth - 20
-        let y = screenFrame.maxY - expandedHeight - 20
+        let y = screenFrame.maxY - panelHeight - 20
         panel.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
@@ -144,11 +143,6 @@ final class MainPanelController {
             ctx.duration = 0.4
             ctx.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
             panel.animator().alphaValue = blendAlpha
-            var f = panel.frame
-            let delta = f.size.height - compactHeight
-            f.origin.y += delta
-            f.size.height = compactHeight
-            panel.animator().setFrame(f, display: true)
         }
     }
 
@@ -158,11 +152,6 @@ final class MainPanelController {
             ctx.duration = 0.3
             ctx.timingFunction = CAMediaTimingFunction(name: .easeOut)
             panel.animator().alphaValue = normalAlpha
-            var f = panel.frame
-            let delta = expandedHeight - f.size.height
-            f.origin.y -= delta
-            f.size.height = expandedHeight
-            panel.animator().setFrame(f, display: true)
         }
     }
 }
