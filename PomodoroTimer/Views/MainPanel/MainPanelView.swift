@@ -14,7 +14,8 @@ struct MainPanelView: View {
             if !panelState.isCompact {
                 ModeTabsView()
                     .padding(.top, 14)
-                    .padding(.horizontal, 16)
+                    .padding(.leading, 36)
+                    .padding(.trailing, 16)
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
 
@@ -24,13 +25,10 @@ struct MainPanelView: View {
 
             Spacer(minLength: 8)
 
-            if panelState.isCompact {
-                CompactControlView()
-                    .padding(.bottom, 12)
-                    .transition(.opacity)
-            } else {
+            if !panelState.isCompact {
                 TimerControlsView()
                     .padding(.horizontal, 24)
+                    .padding(.bottom, 10)
                     .transition(.opacity)
             }
         }
@@ -41,7 +39,7 @@ struct MainPanelView: View {
                 .shadow(color: .black.opacity(0.18), radius: 12, x: 0, y: 4)
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .overlay(alignment: .topTrailing) {
+        .overlay(alignment: .topLeading) {
             Button { onClose() } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 10, weight: .medium))
@@ -57,6 +55,7 @@ struct MainPanelView: View {
 
 struct TimerRingView: View {
     @Environment(TimerViewModel.self) private var timerVM
+    @Environment(PanelDisplayState.self) private var panelState
 
     private var phaseColor: Color {
         switch timerVM.phase {
@@ -77,29 +76,26 @@ struct TimerRingView: View {
                 .stroke(phaseColor, style: StrokeStyle(lineWidth: 5, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 0.5), value: timerVM.progress)
-            // Time text
-            Text(timerVM.remainingString)
-                .font(.system(size: 42, weight: .thin, design: .monospaced))
-                .foregroundStyle(.primary)
-                .contentTransition(.numericText(countsDown: true))
-                .animation(.linear(duration: 0.3), value: timerVM.remainingString)
+            // Center content: time text, plus play/pause in compact mode
+            VStack(spacing: 6) {
+                Text(timerVM.remainingString)
+                    .font(.system(size: 42, weight: .thin, design: .monospaced))
+                    .foregroundStyle(.primary)
+                    .contentTransition(.numericText(countsDown: true))
+                    .animation(.linear(duration: 0.3), value: timerVM.remainingString)
+                if panelState.isCompact {
+                    Button { timerVM.toggleStartPause() } label: {
+                        Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
+                            .font(.system(size: 13, weight: .light))
+                            .foregroundStyle(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                    .transition(.opacity)
+                }
+            }
+            .animation(.easeInOut(duration: 0.4), value: panelState.isCompact)
         }
         .frame(width: 156, height: 156)
     }
 }
 
-// MARK: - Compact Control
-
-struct CompactControlView: View {
-    @Environment(TimerViewModel.self) private var timerVM
-
-    var body: some View {
-        Button { timerVM.toggleStartPause() } label: {
-            Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
-                .font(.system(size: 16, weight: .light))
-                .foregroundStyle(.secondary)
-                .frame(width: 32, height: 32)
-        }
-        .buttonStyle(.plain)
-    }
-}
