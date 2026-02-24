@@ -55,9 +55,9 @@ struct TimerRingView: View {
 
     private var phaseColor: Color {
         switch timerVM.phase {
-        case .focus:      return .red
-        case .shortBreak: return .teal
-        case .longBreak:  return .blue
+        case .focus:      return Color(red: 0.78, green: 0.36, blue: 0.30)
+        case .shortBreak: return Color(red: 0.33, green: 0.60, blue: 0.50)
+        case .longBreak:  return Color(red: 0.40, green: 0.52, blue: 0.68)
         }
     }
 
@@ -68,7 +68,7 @@ struct TimerRingView: View {
                 .stroke(Color.secondary.opacity(0.15), lineWidth: 5)
             // Draining progress arc
             Circle()
-                .trim(from: 0, to: timerVM.progress)
+                .trim(from: 1 - timerVM.progress, to: 1)
                 .stroke(phaseColor, style: StrokeStyle(lineWidth: 5, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 0.5), value: timerVM.progress)
