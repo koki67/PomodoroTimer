@@ -14,6 +14,7 @@ final class MainPanelController {
     private var panel: NSPanel?
     private let timerVM: TimerViewModel
     private let settingsVM: SettingsViewModel
+    private let panelState = PanelDisplayState()
 
     // Blend-into-work parameters
     private var blendTimer: Timer?
@@ -105,6 +106,7 @@ final class MainPanelController {
         let rootView = MainPanelView(onClose: { [weak self] in self?.hide() })
             .environment(timerVM)
             .environment(settingsVM)
+            .environment(panelState)
             .preferredColorScheme(settingsVM.preferredColorScheme)
 
         let hosting = NSHostingView(rootView: rootView)
@@ -138,6 +140,7 @@ final class MainPanelController {
     }
 
     private func applyBlend() {
+        panelState.isCompact = true
         guard let panel else { return }
         NSAnimationContext.runAnimationGroup { ctx in
             ctx.duration = 0.4
@@ -147,6 +150,7 @@ final class MainPanelController {
     }
 
     private func restoreNormal() {
+        panelState.isCompact = false
         guard let panel else { return }
         NSAnimationContext.runAnimationGroup { ctx in
             ctx.duration = 0.3
@@ -154,4 +158,12 @@ final class MainPanelController {
             panel.animator().alphaValue = normalAlpha
         }
     }
+}
+
+// MARK: - Panel Display State
+
+@Observable
+@MainActor
+final class PanelDisplayState {
+    var isCompact = false
 }
