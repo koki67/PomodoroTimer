@@ -103,7 +103,7 @@ final class MainPanelController {
         panel.isMovableByWindowBackground = true
         panel.hidesOnDeactivate = false
 
-        let rootView = MainPanelView()
+        let rootView = MainPanelView(onClose: { [weak self] in self?.hide() })
             .environment(timerVM)
             .environment(settingsVM)
             .preferredColorScheme(settingsVM.preferredColorScheme)

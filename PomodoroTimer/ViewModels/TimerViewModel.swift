@@ -16,6 +16,18 @@ final class TimerViewModel {
 
     var remainingString: String { TimeFormatter.format(engine.remaining) }
 
+    /// Fraction of the current session remaining (1.0 = just started, 0.0 = done).
+    var progress: Double {
+        let total: TimeInterval
+        switch engine.phase {
+        case .focus:      total = engine.settings.focusDuration
+        case .shortBreak: total = engine.settings.shortBreakDuration
+        case .longBreak:  total = engine.settings.longBreakDuration
+        }
+        guard total > 0 else { return 1.0 }
+        return max(0, min(1, engine.remaining / total))
+    }
+
     // MARK: - Stats Forwarding
 
     var todayFocusTime: TimeInterval { statsStore.todayFocusTime }

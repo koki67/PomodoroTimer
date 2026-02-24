@@ -96,7 +96,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Build menu bar + panel
         menuBarController = MenuBarController(timerVM: timerVM, settingsVM: settingsVM)
         menuBarController?.onOpenMainPanel = { [weak self] in
-            self?.mainPanelController?.toggle()
+            self?.mainPanelController?.show()
         }
         menuBarController?.onOpenSettings = { [weak self] in
             self?.showSettings()

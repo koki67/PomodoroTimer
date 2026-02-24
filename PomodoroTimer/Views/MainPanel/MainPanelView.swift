@@ -5,6 +5,9 @@ struct MainPanelView: View {
     @Environment(TimerViewModel.self) private var timerVM
     @Environment(SettingsViewModel.self) private var settingsVM
 
+    /// Called when the user taps the close button.
+    let onClose: () -> Void
+
     var body: some View {
         VStack(spacing: 0) {
             ModeTabsView()
@@ -13,7 +16,7 @@ struct MainPanelView: View {
 
             Spacer(minLength: 8)
 
-            TimerDisplayView()
+            TimerRingView()
 
             Spacer(minLength: 8)
 
@@ -33,19 +36,49 @@ struct MainPanelView: View {
                 .shadow(color: .black.opacity(0.18), radius: 12, x: 0, y: 4)
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(alignment: .topTrailing) {
+            Button { onClose() } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.secondary)
+                    .padding(10)
+            }
+            .buttonStyle(.plain)
+        }
     }
 }
 
-// MARK: - Timer Display
+// MARK: - Timer Ring
 
-struct TimerDisplayView: View {
+struct TimerRingView: View {
     @Environment(TimerViewModel.self) private var timerVM
 
+    private var phaseColor: Color {
+        switch timerVM.phase {
+        case .focus:      return .red
+        case .shortBreak: return .teal
+        case .longBreak:  return .blue
+        }
+    }
+
     var body: some View {
-        Text(timerVM.remainingString)
-            .font(.system(size: 54, weight: .thin, design: .monospaced))
-            .foregroundStyle(.primary)
-            .contentTransition(.numericText(countsDown: true))
-            .animation(.linear(duration: 0.3), value: timerVM.remainingString)
+        ZStack {
+            // Faint track
+            Circle()
+                .stroke(Color.secondary.opacity(0.15), lineWidth: 5)
+            // Draining progress arc
+            Circle()
+                .trim(from: 0, to: timerVM.progress)
+                .stroke(phaseColor, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .animation(.linear(duration: 0.5), value: timerVM.progress)
+            // Time text
+            Text(timerVM.remainingString)
+                .font(.system(size: 42, weight: .thin, design: .monospaced))
+                .foregroundStyle(.primary)
+                .contentTransition(.numericText(countsDown: true))
+                .animation(.linear(duration: 0.3), value: timerVM.remainingString)
+        }
+        .frame(width: 156, height: 156)
     }
 }
