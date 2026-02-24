@@ -4,15 +4,19 @@ import SwiftUI
 struct MainPanelView: View {
     @Environment(TimerViewModel.self) private var timerVM
     @Environment(SettingsViewModel.self) private var settingsVM
+    @Environment(PanelDisplayState.self) private var panelState
 
     /// Called when the user taps the close button.
     let onClose: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
-            ModeTabsView()
-                .padding(.top, 14)
-                .padding(.horizontal, 16)
+            if !panelState.isCompact {
+                ModeTabsView()
+                    .padding(.top, 14)
+                    .padding(.horizontal, 16)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+            }
 
             Spacer(minLength: 8)
 
@@ -20,16 +24,17 @@ struct MainPanelView: View {
 
             Spacer(minLength: 8)
 
-            TimerControlsView()
-                .padding(.horizontal, 24)
-
-            Divider()
-                .padding(.top, 12)
-
-            StatusBarView()
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+            if panelState.isCompact {
+                CompactControlView()
+                    .padding(.bottom, 12)
+                    .transition(.opacity)
+            } else {
+                TimerControlsView()
+                    .padding(.horizontal, 24)
+                    .transition(.opacity)
+            }
         }
+        .animation(.easeInOut(duration: 0.4), value: panelState.isCompact)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(.regularMaterial)
@@ -80,5 +85,21 @@ struct TimerRingView: View {
                 .animation(.linear(duration: 0.3), value: timerVM.remainingString)
         }
         .frame(width: 156, height: 156)
+    }
+}
+
+// MARK: - Compact Control
+
+struct CompactControlView: View {
+    @Environment(TimerViewModel.self) private var timerVM
+
+    var body: some View {
+        Button { timerVM.toggleStartPause() } label: {
+            Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
+                .font(.system(size: 16, weight: .light))
+                .foregroundStyle(.secondary)
+                .frame(width: 32, height: 32)
+        }
+        .buttonStyle(.plain)
     }
 }
