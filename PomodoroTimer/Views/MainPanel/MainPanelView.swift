@@ -6,16 +6,17 @@ struct MainPanelView: View {
     @Environment(SettingsViewModel.self) private var settingsVM
     @Environment(PanelDisplayState.self) private var panelState
 
-    /// Called when the user taps the close button.
     let onClose: () -> Void
+    let onBlend: () -> Void
+    let onAlwaysOnTopToggle: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
             if !panelState.isCompact {
                 ModeTabsView()
-                    .padding(.top, 14)
-                    .padding(.leading, 36)
-                    .padding(.trailing, 16)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, 12)
+                    .padding(.horizontal, 16)
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
 
@@ -24,13 +25,6 @@ struct MainPanelView: View {
             TimerRingView()
 
             Spacer(minLength: 8)
-
-            if !panelState.isCompact {
-                TimerControlsView()
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 10)
-                    .transition(.opacity)
-            }
         }
         .animation(.easeInOut(duration: 0.4), value: panelState.isCompact)
         .background(
@@ -40,14 +34,67 @@ struct MainPanelView: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(alignment: .topLeading) {
-            Button { onClose() } label: {
-                Image(systemName: "xmark")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.secondary)
-                    .padding(10)
-            }
-            .buttonStyle(.plain)
+            TrafficLightRow(
+                onClose: onClose,
+                onBlend: onBlend,
+                onAlwaysOnTopToggle: onAlwaysOnTopToggle
+            )
+            .padding(10)
         }
+    }
+}
+
+// MARK: - Traffic Lights
+
+struct TrafficLightRow: View {
+    let onClose: () -> Void
+    let onBlend: () -> Void
+    let onAlwaysOnTopToggle: () -> Void
+    @State private var isHovering = false
+
+    var body: some View {
+        HStack(spacing: 8) {
+            TrafficLightButton(
+                color: Color(red: 1.00, green: 0.37, blue: 0.34),
+                icon: "xmark",
+                isGroupHovered: isHovering,
+                action: onClose
+            )
+            TrafficLightButton(
+                color: Color(red: 0.99, green: 0.74, blue: 0.18),
+                icon: "minus",
+                isGroupHovered: isHovering,
+                action: onBlend
+            )
+            TrafficLightButton(
+                color: Color(red: 0.16, green: 0.78, blue: 0.25),
+                icon: "plus",
+                isGroupHovered: isHovering,
+                action: onAlwaysOnTopToggle
+            )
+        }
+        .onHover { isHovering = $0 }
+    }
+}
+
+struct TrafficLightButton: View {
+    let color: Color
+    let icon: String
+    let isGroupHovered: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Circle()
+            .fill(color)
+            .frame(width: 12, height: 12)
+            .overlay {
+                if isGroupHovered {
+                    Image(systemName: icon)
+                        .font(.system(size: 6, weight: .bold))
+                        .foregroundStyle(.black.opacity(0.5))
+                }
+            }
+            .onTapGesture { action() }
     }
 }
 
@@ -76,13 +123,14 @@ struct TimerRingView: View {
                 .stroke(phaseColor, style: StrokeStyle(lineWidth: 5, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 0.5), value: timerVM.progress)
-            // Center content: time text, plus play/pause in compact mode
-            VStack(spacing: 6) {
+            // Center content: time + controls
+            VStack(spacing: 10) {
                 Text(timerVM.remainingString)
                     .font(.system(size: 42, weight: .thin, design: .monospaced))
                     .foregroundStyle(.primary)
                     .contentTransition(.numericText(countsDown: true))
                     .animation(.linear(duration: 0.3), value: timerVM.remainingString)
+
                 if panelState.isCompact {
                     Button { timerVM.toggleStartPause() } label: {
                         Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
@@ -91,6 +139,30 @@ struct TimerRingView: View {
                     }
                     .buttonStyle(.plain)
                     .transition(.opacity)
+                } else {
+                    HStack(spacing: 14) {
+                        Button(action: timerVM.reset) {
+                            Image(systemName: "arrow.counterclockwise")
+                                .font(.system(size: 13, weight: .light))
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.plain)
+
+                        Button(action: timerVM.toggleStartPause) {
+                            Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
+                                .font(.system(size: 17, weight: .regular))
+                                .foregroundStyle(Color.accentColor)
+                        }
+                        .buttonStyle(.plain)
+
+                        Button(action: timerVM.skip) {
+                            Image(systemName: "forward.end.fill")
+                                .font(.system(size: 13, weight: .light))
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .transition(.opacity)
                 }
             }
             .animation(.easeInOut(duration: 0.4), value: panelState.isCompact)
@@ -98,4 +170,3 @@ struct TimerRingView: View {
         .frame(width: 156, height: 156)
     }
 }
-
