@@ -11,18 +11,14 @@ struct MainPanelView: View {
             TimerRingView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.regularMaterial)
-                .shadow(color: .black.opacity(0.18), radius: 12, x: 0, y: 4)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(alignment: .topLeading) {
             Button { onClose() } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 10, weight: .medium))
+                    .font(.system(size: 9, weight: .medium))
                     .foregroundStyle(.secondary)
-                    .padding(10)
+                    .padding(6)
+                    .background(Circle().fill(.regularMaterial).opacity(0.7))
+                    .padding(8)
             }
             .buttonStyle(.plain)
         }
