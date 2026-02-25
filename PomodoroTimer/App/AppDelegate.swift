@@ -86,9 +86,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Request notification permission
         notificationService.requestAuthorization()
 
-        // Restore timer state from last session
-        timerEngine.restoreSnapshot()
-
         // Build menu bar + panel
         menuBarController = MenuBarController(timerVM: timerVM, settingsVM: settingsVM)
         menuBarController?.onOpenMainPanel = { [weak self] in
