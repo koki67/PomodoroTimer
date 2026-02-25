@@ -42,6 +42,7 @@
 		A5BA01720A8093C0D7199AA1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93E33D4383D4CA0CA9242 /* Session.swift */; };
 		AA9FF839793BED4AC81F677E /* HotkeySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68816DD9AC664352C3719B24 /* HotkeySettingsView.swift */; };
 		ADA1A862BACB5AC2C84F498B /* TimerSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290B891E3C9D9137841BCFB /* TimerSnapshot.swift */; };
+		AE01F0A728F7F5460FE37F18 /* BreakOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D233BE92AA609FC645FB87B /* BreakOverlayView.swift */; };
 		AF0987714D4984620F5198C3 /* CSVExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66986ED6FC2112DCC7FEC40E /* CSVExporter.swift */; };
 		B370647F7893F75E1804D0A2 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEDC5FB9E90C5D6DB626BF9 /* TimeFormatter.swift */; };
 		B4CBAC26E30AA6A8399D4EB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33A01FAF05890ED5AE7C09 /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		B83FF5337CD6270D93ED5E11 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F2D64287EA9F924B681F4 /* SettingsView.swift */; };
 		BB2C16D9FF95EA5D69EE1CCC /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93E33D4383D4CA0CA9242 /* Session.swift */; };
 		BC81E0A712EF0DE2FF3F3066 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7A6D2BB2FD41D131DEF67 /* PersistenceService.swift */; };
+		C4F3016B8BABFBFF19B51A94 /* BreakOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC82B9C0AF6729000C472CE /* BreakOverlayController.swift */; };
 		C6597C1D898490ED4C571020 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4389DEE58A4DF49F9B80AD1 /* TimerEngine.swift */; };
 		C9826E82C28E28CE0392B584 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40C630672275F59DB041F1 /* NotificationService.swift */; };
 		CA6213FB2419CC66DCBA4BC6 /* MainPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21DF01E7C5957E35A8103C8 /* MainPanelController.swift */; };
@@ -78,6 +80,7 @@
 		66986ED6FC2112DCC7FEC40E /* CSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExporter.swift; sourceTree = "<group>"; };
 		68816DD9AC664352C3719B24 /* HotkeySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeySettingsView.swift; sourceTree = "<group>"; };
 		68D41AE725D4491CBE4E5535 /* PomodoroTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PomodoroTimer.entitlements; sourceTree = "<group>"; };
+		7D233BE92AA609FC645FB87B /* BreakOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakOverlayView.swift; sourceTree = "<group>"; };
 		7FD092D5B646BFC3020BD353 /* crickets.m4a */ = {isa = PBXFileReference; path = crickets.m4a; sourceTree = "<group>"; };
 		8A277A9ADD7AA69221EA507F /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
 		8D22A714DDB19027C5258226 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		92786359C448E7E832C3ED0E /* SessionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHistoryView.swift; sourceTree = "<group>"; };
 		938EDCD7DB26774AE0CA6272 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
 		990AE4D040EC19357EA8CAFF /* PomodoroTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AC82B9C0AF6729000C472CE /* BreakOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakOverlayController.swift; sourceTree = "<group>"; };
 		9B23445F551235AC6E7840CF /* SoundSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundSettingsView.swift; sourceTree = "<group>"; };
 		9C4F6509A27C3D9E5AC91C54 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
 		A0BEA09E897C826BF055770E /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 		3314909FD17F3B348B8640F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF211DE48356276AC7F0A8CF /* BreakOverlay */,
 				3680C6E186F2B93567B398D4 /* MainPanel */,
 				B982A4E384D8419E0D9C3BF9 /* MenuBar */,
 				54E0EF1F9D70D0A5795BE265 /* Settings */,
@@ -179,6 +184,7 @@
 		46EAE0EC7589602CE22A5402 /* WindowControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9AC82B9C0AF6729000C472CE /* BreakOverlayController.swift */,
 				F21DF01E7C5957E35A8103C8 /* MainPanelController.swift */,
 				E6550DBE5A230782E6EC2B37 /* MenuBarController.swift */,
 				AC041338B451386866E3B0CB /* SettingsWindowController.swift */,
@@ -321,6 +327,14 @@
 			path = PomodoroTimer;
 			sourceTree = "<group>";
 		};
+		FF211DE48356276AC7F0A8CF /* BreakOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				7D233BE92AA609FC645FB87B /* BreakOverlayView.swift */,
+			);
+			path = BreakOverlay;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -443,6 +457,8 @@
 				A479180D2ACD32D27C3C19BE /* AppSettings.swift in Sources */,
 				D425374628FAE8EA5419CAFF /* AppearanceSettingsView.swift in Sources */,
 				D4DF0DBFE5CD24796C8D9DCC /* AudioService.swift in Sources */,
+				C4F3016B8BABFBFF19B51A94 /* BreakOverlayController.swift in Sources */,
+				AE01F0A728F7F5460FE37F18 /* BreakOverlayView.swift in Sources */,
 				6CCA6AD3FF773539216336B7 /* CSVExporter.swift in Sources */,
 				D567D67F9F33C0314A72F7F7 /* HotkeyService.swift in Sources */,
 				AA9FF839793BED4AC81F677E /* HotkeySettingsView.swift in Sources */,

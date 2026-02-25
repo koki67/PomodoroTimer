@@ -52,6 +52,10 @@ struct TimerSettingsView: View {
                 Toggle("Start focus automatically", isOn: $vm.settings.autoStartFocus)
             }
 
+            Section("Forced Break Screen") {
+                Toggle("Cover screen at end of focus session", isOn: $vm.settings.forceBreakScreenEnabled)
+            }
+
             Section("Daily Goal") {
                 Stepper(
                     "\(vm.settings.dailySessionGoal) sessions",

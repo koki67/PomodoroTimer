@@ -42,6 +42,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                     self.timerVM.toggleStartPause()
                 }
             }
+            // Forced break screen
+            if self.settingsVM.settings.forceBreakScreenEnabled {
+                if session.phase == .focus {
+                    // Focus ended → show overlay; ensure break timer is running
+                    self.breakOverlayController?.show()
+                    if self.timerEngine.status == .idle {
+                        self.timerVM.toggleStartPause()
+                    }
+                } else {
+                    // Break ended → dismiss overlay
+                    self.breakOverlayController?.hide()
+                }
+            }
         }
         return engine
     }()
@@ -71,6 +84,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var menuBarController: MenuBarController?
     private var mainPanelController: MainPanelController?
     private var settingsWindowController: SettingsWindowController?
+    private var breakOverlayController: BreakOverlayController?
 
     // MARK: - Observers
 
@@ -97,6 +111,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         mainPanelController = MainPanelController(timerVM: timerVM, settingsVM: settingsVM)
         mainPanelController?.show()
+
+        breakOverlayController = BreakOverlayController(timerVM: timerVM)
+        breakOverlayController?.onSkip = { [weak self] in
+            self?.timerVM.skip()
+            // hide() is called by onSessionComplete when break phase ends
+        }
 
         // Sleep/wake observer for timer accuracy
         sleepWakeObserver = SleepWakeObserver { [weak self] event in

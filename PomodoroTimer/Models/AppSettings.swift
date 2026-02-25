@@ -66,6 +66,8 @@ struct AppSettings: Codable, Sendable {
 
     // MARK: UI Behavior
     var themeMode: ThemeMode    = .system
+    /// Cover the screen with a blurred overlay during break sessions.
+    var forceBreakScreenEnabled: Bool = false
 
     // MARK: Goals
     var dailySessionGoal: Int        = 8
