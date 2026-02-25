@@ -3,17 +3,14 @@ import SwiftUI
 /// Root view for the floating timer panel.
 struct MainPanelView: View {
     @Environment(TimerViewModel.self) private var timerVM
-    @Environment(SettingsViewModel.self) private var settingsVM
 
     let onClose: () -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer(minLength: 8)
+        ZStack {
             TimerRingView()
-            Spacer(minLength: 8)
         }
-        .padding(.top, 12)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(.regularMaterial)

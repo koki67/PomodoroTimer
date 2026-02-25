@@ -15,11 +15,11 @@ final class MainPanelController {
     private let timerVM: TimerViewModel
     private let settingsVM: SettingsViewModel
 
-    private let panelWidth: CGFloat  = 320
+    private let panelWidth: CGFloat  = 220
     private let panelHeight: CGFloat = 220
 
     // UserDefaults key for panel position persistence
-    private let frameKey = "MainPanelFrame"
+    private let frameKey = "MainPanelFrame3"
 
     init(timerVM: TimerViewModel, settingsVM: SettingsViewModel) {
         self.timerVM    = timerVM
@@ -72,6 +72,7 @@ final class MainPanelController {
             defer: false
         )
         panel.level             = .floating
+        panel.alphaValue        = 0.75
         panel.isOpaque          = false
         panel.backgroundColor   = .clear
         panel.hasShadow         = true
