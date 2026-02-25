@@ -68,6 +68,15 @@ final class MainPanelController {
         panel?.level = alwaysOnTop ? .floating : .normal
     }
 
+    func toggleAlwaysOnTop() {
+        settingsVM.settings.alwaysOnTop.toggle()
+        applyAlwaysOnTop(settingsVM.settings.alwaysOnTop)
+    }
+
+    // MARK: - Blend Now (yellow button)
+
+    func blendNow() { applyBlend() }
+
     // MARK: - Appearance
 
     func applyAppearance(_ themeMode: ThemeMode) {
@@ -102,8 +111,13 @@ final class MainPanelController {
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.isMovableByWindowBackground = true
         panel.hidesOnDeactivate = false
+        panel.minSize           = NSSize(width: panelWidth, height: panelHeight)
 
-        let rootView = MainPanelView(onClose: { [weak self] in self?.hide() })
+        let rootView = MainPanelView(
+            onClose:             { [weak self] in self?.hide() },
+            onBlend:             { [weak self] in self?.blendNow() },
+            onAlwaysOnTopToggle: { [weak self] in self?.toggleAlwaysOnTop() }
+        )
             .environment(timerVM)
             .environment(settingsVM)
             .environment(panelState)
