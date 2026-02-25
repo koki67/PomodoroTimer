@@ -16,7 +16,7 @@ struct MainPanelView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.clear.contentShape(Rectangle()))
         .simultaneousGesture(
-            DragGesture(minimumDistance: 5)
+            DragGesture(minimumDistance: 5, coordinateSpace: .global)
                 .onChanged { value in
                     guard let panel = NSApp.windows
                         .first(where: { $0.isVisible && $0 is NSPanel }) as? NSPanel
