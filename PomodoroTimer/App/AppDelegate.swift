@@ -115,7 +115,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         breakOverlayController = BreakOverlayController(timerVM: timerVM)
         breakOverlayController?.onSkip = { [weak self] in
             self?.timerVM.skip()
-            // hide() is called by onSessionComplete when break phase ends
+            // hide() is called by onSessionComplete when break phase ends;
+            // then immediately start the next focus session
+            self?.timerVM.toggleStartPause()
         }
 
         // Sleep/wake observer for timer accuracy
