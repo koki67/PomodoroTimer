@@ -20,7 +20,7 @@ final class MainPanelController {
     private var blendTimer: Timer?
     private let blendAlpha: CGFloat  = 0.7
     private let normalAlpha: CGFloat = 1.0
-    private let panelWidth: CGFloat  = 280
+    private let panelWidth: CGFloat  = 320
     private let panelHeight: CGFloat = 260
 
     // UserDefaults key for panel position persistence
@@ -113,11 +113,7 @@ final class MainPanelController {
         panel.hidesOnDeactivate = false
         panel.minSize           = NSSize(width: panelWidth, height: panelHeight)
 
-        let rootView = MainPanelView(
-            onClose:             { [weak self] in self?.hide() },
-            onBlend:             { [weak self] in self?.blendNow() },
-            onAlwaysOnTopToggle: { [weak self] in self?.toggleAlwaysOnTop() }
-        )
+        let rootView = MainPanelView(onClose: { [weak self] in self?.hide() })
             .environment(timerVM)
             .environment(settingsVM)
             .environment(panelState)
@@ -125,6 +121,7 @@ final class MainPanelController {
 
         let hosting = NSHostingView(rootView: rootView)
         hosting.autoresizingMask = [.width, .height]
+        hosting.sizingOptions = []   // prevent SwiftUI content size from driving panel resize
         panel.contentView = hosting
 
         // Restore saved position or place near top-right of main screen.
@@ -132,7 +129,7 @@ final class MainPanelController {
         if let saved = UserDefaults.standard.string(forKey: frameKey) {
             let frame = NSRectFromString(saved)
             if frame != .zero {
-                let migratedSize = NSSize(width: frame.width,
+                let migratedSize = NSSize(width:  max(frame.width,  panelWidth),
                                          height: max(frame.height, panelHeight))
                 panel.setFrame(NSRect(origin: frame.origin, size: migratedSize),
                                display: false)
