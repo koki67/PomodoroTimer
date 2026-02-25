@@ -6,12 +6,15 @@ struct MainPanelView: View {
 
     let onClose: () -> Void
 
+    @State private var isHovering = false
+
     var body: some View {
         ZStack {
             TimerRingView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.clear.contentShape(Rectangle()))
+        .onHover { isHovering = $0 }
         .overlay(alignment: .topLeading) {
             Button { onClose() } label: {
                 Image(systemName: "xmark")
@@ -22,6 +25,8 @@ struct MainPanelView: View {
                     .padding(8)
             }
             .buttonStyle(.plain)
+            .opacity(isHovering ? 1 : 0)
+            .animation(.easeInOut(duration: 0.15), value: isHovering)
         }
     }
 }
