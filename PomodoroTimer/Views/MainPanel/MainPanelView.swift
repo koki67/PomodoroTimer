@@ -11,6 +11,7 @@ struct MainPanelView: View {
             TimerRingView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.clear.contentShape(Rectangle()))
         .overlay(alignment: .topLeading) {
             Button { onClose() } label: {
                 Image(systemName: "xmark")
