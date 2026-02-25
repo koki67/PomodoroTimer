@@ -33,9 +33,9 @@ struct TimerRingView: View {
 
     private var phaseColor: Color {
         switch timerVM.phase {
-        case .focus:      return Color(red: 0.78, green: 0.36, blue: 0.30)
-        case .shortBreak: return Color(red: 0.33, green: 0.60, blue: 0.50)
-        case .longBreak:  return Color(red: 0.40, green: 0.52, blue: 0.68)
+        case .focus:      return Color(red: 0.70, green: 0.48, blue: 0.40)
+        case .shortBreak: return Color(red: 0.48, green: 0.62, blue: 0.52)
+        case .longBreak:  return Color(red: 0.48, green: 0.54, blue: 0.66)
         }
     }
 
