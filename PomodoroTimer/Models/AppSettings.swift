@@ -65,9 +65,7 @@ struct AppSettings: Codable, Sendable {
     var breakEndSound: String      = "Glass"
 
     // MARK: UI Behavior
-    var alwaysOnTop: Bool       = true
     var themeMode: ThemeMode    = .system
-    var blendDelay: TimeInterval = 3.0  // seconds after start before auto-shrink
 
     // MARK: Goals
     var dailySessionGoal: Int        = 8

@@ -42,8 +42,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                     self.timerVM.toggleStartPause()
                 }
             }
-            // Notify panel to restore normal appearance
-            self.mainPanelController?.handleTimerStatusChange(self.timerEngine.status)
         }
         return engine
     }()
@@ -55,7 +53,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let vm = SettingsViewModel(settings: settings, persistence: persistence)
         vm.onSettingsChanged = { [weak self] newSettings in
             self?.timerEngine.updateSettings(newSettings)
-            self?.mainPanelController?.applyAlwaysOnTop(newSettings.alwaysOnTop)
             self?.mainPanelController?.applyAppearance(newSettings.themeMode)
         }
         return vm
@@ -78,7 +75,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Observers
 
     private var sleepWakeObserver: SleepWakeObserver?
-    private var statusObservationTask: Task<Void, Never>?
 
     // MARK: - NSApplicationDelegate
 
@@ -118,8 +114,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             self?.handleHotkeyAction(action)
         }
 
-        // Observe timer status changes to drive panel blend behavior
-        startStatusObservation()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -156,20 +150,4 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    // MARK: - Status Observation
-
-    /// Periodically push timer status to the panel controller for blend animation.
-    private func startStatusObservation() {
-        statusObservationTask = Task {
-            var lastStatus: TimerStatus = .idle
-            while !Task.isCancelled {
-                let current = timerEngine.status
-                if current != lastStatus {
-                    mainPanelController?.handleTimerStatusChange(current)
-                    lastStatus = current
-                }
-                try? await Task.sleep(nanoseconds: 200_000_000) // 200ms
-            }
-        }
-    }
 }

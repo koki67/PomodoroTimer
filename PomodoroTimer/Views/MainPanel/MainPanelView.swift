@@ -4,30 +4,16 @@ import SwiftUI
 struct MainPanelView: View {
     @Environment(TimerViewModel.self) private var timerVM
     @Environment(SettingsViewModel.self) private var settingsVM
-    @Environment(PanelDisplayState.self) private var panelState
 
     let onClose: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
-            if !panelState.isCompact {
-                HStack {
-                    Spacer()
-                    ModeTabsView()
-                    Spacer()
-                }
-                .padding(.top, 12)
-                .padding(.horizontal, 16)
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-
             Spacer(minLength: 8)
-
             TimerRingView()
-
             Spacer(minLength: 8)
         }
-        .animation(.easeInOut(duration: 0.4), value: panelState.isCompact)
+        .padding(.top, 12)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(.regularMaterial)
@@ -50,7 +36,6 @@ struct MainPanelView: View {
 
 struct TimerRingView: View {
     @Environment(TimerViewModel.self) private var timerVM
-    @Environment(PanelDisplayState.self) private var panelState
 
     private var phaseColor: Color {
         switch timerVM.phase {
@@ -79,41 +64,29 @@ struct TimerRingView: View {
                     .contentTransition(.numericText(countsDown: true))
                     .animation(.linear(duration: 0.3), value: timerVM.remainingString)
 
-                if panelState.isCompact {
-                    Button { timerVM.toggleStartPause() } label: {
-                        Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
+                HStack(spacing: 14) {
+                    Button(action: timerVM.reset) {
+                        Image(systemName: "arrow.counterclockwise")
                             .font(.system(size: 13, weight: .light))
                             .foregroundStyle(.secondary)
                     }
                     .buttonStyle(.plain)
-                    .transition(.opacity)
-                } else {
-                    HStack(spacing: 14) {
-                        Button(action: timerVM.reset) {
-                            Image(systemName: "arrow.counterclockwise")
-                                .font(.system(size: 13, weight: .light))
-                                .foregroundStyle(.secondary)
-                        }
-                        .buttonStyle(.plain)
 
-                        Button(action: timerVM.toggleStartPause) {
-                            Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
-                                .font(.system(size: 17, weight: .regular))
-                                .foregroundStyle(Color.accentColor)
-                        }
-                        .buttonStyle(.plain)
-
-                        Button(action: timerVM.skip) {
-                            Image(systemName: "forward.end.fill")
-                                .font(.system(size: 13, weight: .light))
-                                .foregroundStyle(.secondary)
-                        }
-                        .buttonStyle(.plain)
+                    Button(action: timerVM.toggleStartPause) {
+                        Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
+                            .font(.system(size: 17, weight: .regular))
+                            .foregroundStyle(Color.accentColor)
                     }
-                    .transition(.opacity)
+                    .buttonStyle(.plain)
+
+                    Button(action: timerVM.skip) {
+                        Image(systemName: "forward.end.fill")
+                            .font(.system(size: 13, weight: .light))
+                            .foregroundStyle(.secondary)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
-            .animation(.easeInOut(duration: 0.4), value: panelState.isCompact)
         }
         .frame(width: 156, height: 156)
     }
