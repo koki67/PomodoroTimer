@@ -52,26 +52,10 @@ struct AppSettings: Codable, Sendable {
     /// Automatically start focus timer after a break session completes.
     var autoStartFocus: Bool    = false
 
-    // MARK: Ambient Sound
-    var ambientSoundEnabled: Bool       = false
-    var selectedAmbientSound: AmbientSound = .rain
-    var ambientVolume: Float            = 0.5
-
-    // MARK: Notifications
-    var notificationsEnabled: Bool = true
-    /// NSSound name for focus-session-end notification. Empty = default.
-    var focusEndSound: String      = "Blow"
-    /// NSSound name for break-session-end notification. Empty = default.
-    var breakEndSound: String      = "Glass"
-
     // MARK: UI Behavior
     var themeMode: ThemeMode    = .system
     /// Cover the screen with a blurred overlay during break sessions.
     var forceBreakScreenEnabled: Bool = false
-
-    // MARK: Goals
-    var dailySessionGoal: Int        = 8
-    var dailyFocusGoalMinutes: Int   = 120
 
     // MARK: Hotkeys
     var hotkeyStartPause:   HotkeySetting = .defaultStartPause

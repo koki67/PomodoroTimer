@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 
-/// Bridges TimerEngine and AudioService to the SwiftUI view layer.
+/// Bridges TimerEngine to the SwiftUI view layer.
 /// All actions (start/pause/reset/skip/phase select) go through here.
 @Observable
 @MainActor
@@ -36,14 +36,12 @@ final class TimerViewModel {
     // MARK: - Dependencies
 
     let engine: TimerEngine
-    private let audio: AudioService
     private let statsStore: StatsStore
 
     // MARK: - Init
 
-    init(engine: TimerEngine, audio: AudioService, statsStore: StatsStore) {
-        self.engine = engine
-        self.audio  = audio
+    init(engine: TimerEngine, statsStore: StatsStore) {
+        self.engine     = engine
         self.statsStore = statsStore
     }
 
@@ -51,39 +49,20 @@ final class TimerViewModel {
 
     func toggleStartPause() {
         switch engine.status {
-        case .idle, .paused:
-            engine.start()
-            playAmbientIfEnabled()
-        case .running:
-            engine.pause()
-            audio.stop()
+        case .idle, .paused: engine.start()
+        case .running:       engine.pause()
         }
     }
 
     func reset() {
         engine.reset()
-        audio.stop()
     }
 
     func skip() {
         engine.skip()
-        // Ambient sound continues into the next session only if still running.
-        // AudioService.stop() is not called here; next start() call will handle it.
     }
 
     func selectPhase(_ phase: TimerPhase) {
         engine.selectPhase(phase)
-    }
-
-    // MARK: - Audio
-
-    func playAmbientIfEnabled() {
-        let settings = engine.settings
-        guard settings.ambientSoundEnabled else { return }
-        audio.play(sound: settings.selectedAmbientSound, volume: settings.ambientVolume)
-    }
-
-    func stopAmbient() {
-        audio.stop()
     }
 }

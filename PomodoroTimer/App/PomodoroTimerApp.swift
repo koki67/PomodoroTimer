@@ -11,7 +11,6 @@ struct PomodoroTimerApp: App {
             SettingsView()
                 .environment(appDelegate.settingsVM)
                 .environment(appDelegate.statsVM)
-                .environment(appDelegate.audioService)
         }
     }
 }

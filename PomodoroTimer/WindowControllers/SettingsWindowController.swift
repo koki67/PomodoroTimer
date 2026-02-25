@@ -5,11 +5,10 @@ import SwiftUI
 @MainActor
 final class SettingsWindowController: NSWindowController {
 
-    convenience init(settingsVM: SettingsViewModel, statsVM: StatsViewModel, audio: AudioService) {
+    convenience init(settingsVM: SettingsViewModel, statsVM: StatsViewModel) {
         let rootView = SettingsView()
             .environment(settingsVM)
             .environment(statsVM)
-            .environment(audio)
 
         let hosting = NSHostingController(rootView: rootView)
         let window = NSWindow(contentViewController: hosting)

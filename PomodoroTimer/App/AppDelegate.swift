@@ -1,5 +1,4 @@
 import AppKit
-import Combine
 
 /// Application lifecycle manager. Owns and wires together all services,
 /// view models, and window controllers.
@@ -8,10 +7,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Services (single instances, owned here)
 
-    let persistence     = PersistenceService()
-    let audioService    = AudioService()
-    let hotkeyService   = HotkeyService()
-    let notificationService = NotificationService.shared
+    let persistence   = PersistenceService()
+    let hotkeyService = HotkeyService()
 
     // Stats store depends on persistence
     private(set) lazy var statsStore = StatsStore(persistence: persistence)
@@ -23,15 +20,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         engine.onSessionComplete = { [weak self] session in
             guard let self else { return }
             self.statsStore.record(session)
-            // Fire notification
-            let soundName = session.phase == .focus
-                ? self.settingsVM.settings.focusEndSound
-                : self.settingsVM.settings.breakEndSound
-            if self.settingsVM.settings.notificationsEnabled {
-                self.notificationService.send(for: session.phase, soundName: soundName)
-            }
-            // Stop ambient sound at session boundary (next start re-triggers it)
-            self.audioService.stop()
             // Auto-advance if enabled
             if session.wasCompleted {
                 let s = self.settingsVM.settings
@@ -72,7 +60,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     private(set) lazy var timerVM: TimerViewModel = {
-        TimerViewModel(engine: timerEngine, audio: audioService, statsStore: statsStore)
+        TimerViewModel(engine: timerEngine, statsStore: statsStore)
     }()
 
     private(set) lazy var statsVM: StatsViewModel = {
@@ -96,9 +84,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Hide from Dock; run as menu bar accessory.
         // LSUIElement in Info.plist also handles this at launch time.
         NSApp.setActivationPolicy(.accessory)
-
-        // Request notification permission
-        notificationService.requestAuthorization()
 
         // Build menu bar + panel
         menuBarController = MenuBarController(timerVM: timerVM, settingsVM: settingsVM)
@@ -132,7 +117,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         hotkeyService.register(settings: settingsVM.settings) { [weak self] action in
             self?.handleHotkeyAction(action)
         }
-
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -151,8 +135,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if settingsWindowController == nil {
             settingsWindowController = SettingsWindowController(
                 settingsVM: settingsVM,
-                statsVM: statsVM,
-                audio: audioService
+                statsVM: statsVM
             )
         }
         settingsWindowController?.show()

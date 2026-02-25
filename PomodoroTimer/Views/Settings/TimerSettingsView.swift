@@ -56,19 +56,6 @@ struct TimerSettingsView: View {
                 Toggle("Cover screen at end of focus session", isOn: $vm.settings.forceBreakScreenEnabled)
             }
 
-            Section("Daily Goal") {
-                Stepper(
-                    "\(vm.settings.dailySessionGoal) sessions",
-                    value: $vm.settings.dailySessionGoal,
-                    in: 1...20
-                )
-                Stepper(
-                    "\(vm.settings.dailyFocusGoalMinutes) minutes of focus",
-                    value: $vm.settings.dailyFocusGoalMinutes,
-                    in: 15...480,
-                    step: 15
-                )
-            }
         }
         .formStyle(.grouped)
         .padding()

@@ -9,12 +9,6 @@ struct SettingsView: View {
             TimerSettingsView()
                 .tabItem { Label("Timer", systemImage: "timer") }
 
-            SoundSettingsView()
-                .tabItem { Label("Sound", systemImage: "speaker.wave.2.fill") }
-
-            NotificationSettingsView()
-                .tabItem { Label("Notifications", systemImage: "bell.fill") }
-
             HotkeySettingsView()
                 .tabItem { Label("Shortcuts", systemImage: "keyboard.fill") }
 
