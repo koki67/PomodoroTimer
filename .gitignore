@@ -12,3 +12,6 @@ xcuserdata/
 # DerivedData
 DerivedData/
 ~/Library/Developer/Xcode/DerivedData/
+
+# Claude Code local workspace files
+.claude/
