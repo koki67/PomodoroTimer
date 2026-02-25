@@ -7,17 +7,18 @@ struct MainPanelView: View {
     @Environment(PanelDisplayState.self) private var panelState
 
     let onClose: () -> Void
-    let onBlend: () -> Void
-    let onAlwaysOnTopToggle: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
             if !panelState.isCompact {
-                ModeTabsView()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, 12)
-                    .padding(.horizontal, 16)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                HStack {
+                    Spacer()
+                    ModeTabsView()
+                    Spacer()
+                }
+                .padding(.top, 12)
+                .padding(.horizontal, 16)
+                .transition(.opacity.combined(with: .move(edge: .top)))
             }
 
             Spacer(minLength: 8)
@@ -34,67 +35,14 @@ struct MainPanelView: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(alignment: .topLeading) {
-            TrafficLightRow(
-                onClose: onClose,
-                onBlend: onBlend,
-                onAlwaysOnTopToggle: onAlwaysOnTopToggle
-            )
-            .padding(10)
-        }
-    }
-}
-
-// MARK: - Traffic Lights
-
-struct TrafficLightRow: View {
-    let onClose: () -> Void
-    let onBlend: () -> Void
-    let onAlwaysOnTopToggle: () -> Void
-    @State private var isHovering = false
-
-    var body: some View {
-        HStack(spacing: 8) {
-            TrafficLightButton(
-                color: Color(red: 1.00, green: 0.37, blue: 0.34),
-                icon: "xmark",
-                isGroupHovered: isHovering,
-                action: onClose
-            )
-            TrafficLightButton(
-                color: Color(red: 0.99, green: 0.74, blue: 0.18),
-                icon: "minus",
-                isGroupHovered: isHovering,
-                action: onBlend
-            )
-            TrafficLightButton(
-                color: Color(red: 0.16, green: 0.78, blue: 0.25),
-                icon: "plus",
-                isGroupHovered: isHovering,
-                action: onAlwaysOnTopToggle
-            )
-        }
-        .onHover { isHovering = $0 }
-    }
-}
-
-struct TrafficLightButton: View {
-    let color: Color
-    let icon: String
-    let isGroupHovered: Bool
-    let action: () -> Void
-
-    var body: some View {
-        Circle()
-            .fill(color)
-            .frame(width: 12, height: 12)
-            .overlay {
-                if isGroupHovered {
-                    Image(systemName: icon)
-                        .font(.system(size: 6, weight: .bold))
-                        .foregroundStyle(.black.opacity(0.5))
-                }
+            Button { onClose() } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.secondary)
+                    .padding(10)
             }
-            .onTapGesture { action() }
+            .buttonStyle(.plain)
+        }
     }
 }
 
