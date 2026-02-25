@@ -72,7 +72,7 @@ final class MainPanelController {
             defer: false
         )
         panel.level             = .floating
-        panel.alphaValue        = 0.75
+        panel.alphaValue        = 0.6
         panel.isOpaque          = false
         panel.backgroundColor   = .clear
         panel.hasShadow         = true

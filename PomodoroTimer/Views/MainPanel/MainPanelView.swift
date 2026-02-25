@@ -6,12 +6,32 @@ struct MainPanelView: View {
 
     let onClose: () -> Void
 
+    @State private var isDragging = false
+    @State private var dragStartOrigin: CGPoint = .zero
+
     var body: some View {
         ZStack {
             TimerRingView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.clear.contentShape(Rectangle()))
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 5)
+                .onChanged { value in
+                    guard let panel = NSApp.windows
+                        .first(where: { $0.isVisible && $0 is NSPanel }) as? NSPanel
+                    else { return }
+                    if !isDragging {
+                        isDragging = true
+                        dragStartOrigin = panel.frame.origin
+                    }
+                    panel.setFrameOrigin(CGPoint(
+                        x: dragStartOrigin.x + value.translation.width,
+                        y: dragStartOrigin.y - value.translation.height
+                    ))
+                }
+                .onEnded { _ in isDragging = false }
+        )
         .overlay(alignment: .topLeading) {
             Button { onClose() } label: {
                 Image(systemName: "xmark")
@@ -54,7 +74,7 @@ struct TimerRingView: View {
             VStack(spacing: 10) {
                 Text(timerVM.remainingString)
                     .font(.system(size: 42, weight: .thin, design: .monospaced))
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(.secondary)
                     .contentTransition(.numericText(countsDown: true))
                     .animation(.linear(duration: 0.3), value: timerVM.remainingString)
 
@@ -69,7 +89,7 @@ struct TimerRingView: View {
                     Button(action: timerVM.toggleStartPause) {
                         Image(systemName: timerVM.status == .running ? "pause" : "play.fill")
                             .font(.system(size: 17, weight: .regular))
-                            .foregroundStyle(Color.accentColor)
+                            .foregroundStyle(.secondary)
                     }
                     .buttonStyle(.plain)
 
