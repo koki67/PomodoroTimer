@@ -116,7 +116,7 @@ PomodoroTimer/
   Core/
     TimerEngine/            — TimerEngine (date-diff countdown), SessionCycle (phase logic)
     Services/               — PersistenceService, HotkeyService (Carbon), SleepWakeObserver
-  ViewModels/               — TimerViewModel, SettingsViewModel, StatsViewModel
+  ViewModels/               — TimerViewModel, SettingsViewModel
   WindowControllers/        — MenuBarController, MainPanelController,
                               BreakOverlayController, SettingsWindowController
   Views/

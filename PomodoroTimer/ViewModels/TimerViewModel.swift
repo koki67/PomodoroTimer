@@ -28,21 +28,14 @@ final class TimerViewModel {
         return max(0, min(1, engine.remaining / total))
     }
 
-    // MARK: - Stats Forwarding
-
-    var todayFocusTime: TimeInterval { statsStore.todayFocusTime }
-    var todaySessionCount: Int { statsStore.todaySessionCount }
-
     // MARK: - Dependencies
 
     let engine: TimerEngine
-    private let statsStore: StatsStore
 
     // MARK: - Init
 
-    init(engine: TimerEngine, statsStore: StatsStore) {
-        self.engine     = engine
-        self.statsStore = statsStore
+    init(engine: TimerEngine) {
+        self.engine = engine
     }
 
     // MARK: - Timer Controls

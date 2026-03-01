@@ -10,16 +10,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let persistence   = PersistenceService()
     let hotkeyService = HotkeyService()
 
-    // Stats store depends on persistence
-    private(set) lazy var statsStore = StatsStore(persistence: persistence)
-
     // Timer engine depends on loaded settings
     private(set) lazy var timerEngine: TimerEngine = {
         let settings = persistence.loadSettings() ?? AppSettings()
         let engine = TimerEngine(settings: settings, persistence: persistence)
         engine.onSessionComplete = { [weak self] session in
             guard let self else { return }
-            self.statsStore.record(session)
             // Auto-advance if enabled
             if session.wasCompleted {
                 let s = self.settingsVM.settings
@@ -60,11 +56,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     private(set) lazy var timerVM: TimerViewModel = {
-        TimerViewModel(engine: timerEngine, statsStore: statsStore)
-    }()
-
-    private(set) lazy var statsVM: StatsViewModel = {
-        StatsViewModel(store: statsStore, persistence: persistence)
+        TimerViewModel(engine: timerEngine)
     }()
 
     // MARK: - Window Controllers
@@ -134,8 +126,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func showSettings() {
         if settingsWindowController == nil {
             settingsWindowController = SettingsWindowController(
-                settingsVM: settingsVM,
-                statsVM: statsVM
+                settingsVM: settingsVM
             )
         }
         settingsWindowController?.show()

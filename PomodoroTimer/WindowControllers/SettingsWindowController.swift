@@ -5,10 +5,9 @@ import SwiftUI
 @MainActor
 final class SettingsWindowController: NSWindowController {
 
-    convenience init(settingsVM: SettingsViewModel, statsVM: StatsViewModel) {
+    convenience init(settingsVM: SettingsViewModel) {
         let rootView = SettingsView()
             .environment(settingsVM)
-            .environment(statsVM)
 
         let hosting = NSHostingController(rootView: rootView)
         let window = NSWindow(contentViewController: hosting)

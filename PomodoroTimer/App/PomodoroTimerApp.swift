@@ -10,7 +10,6 @@ struct PomodoroTimerApp: App {
         Settings {
             SettingsView()
                 .environment(appDelegate.settingsVM)
-                .environment(appDelegate.statsVM)
         }
     }
 }
