@@ -1,51 +1,61 @@
 # PomodoroTimer
 
-A native macOS Pomodoro timer that lives in the menu bar. A small transparent floating panel shows the circular progress ring and controls; an optional full-screen overlay forces breaks at the end of every focus session.
+> A minimal, native macOS Pomodoro timer that lives in the menu bar.
+
+<p align="center">
+  <img src=".github/assets/panel.png" width="220" alt="PomodoroTimer floating panel" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-15.0%2B-blue?logo=apple" alt="macOS 15.0+" />
+  <img src="https://img.shields.io/badge/Swift-6-orange?logo=swift" alt="Swift 6" />
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License" />
+</p>
+
+---
+
+## Overview
+
+A small transparent floating panel sits on top of all your windows, showing a circular progress ring and countdown. When a focus session ends, a full-screen blurred overlay takes over every connected display to enforce your break — no notifications, no distractions.
+
+No Dock icon. Runs entirely from the menu bar.
 
 ---
 
 ## Features
 
-### Timer
-- Three phases: **Focus** (25 min), **Short Break** (5 min), **Long Break** (15 min) — all durations configurable
-- Automatic phase cycling: short break after each focus session, long break every N sessions (default 4)
-- Start / Pause / Skip / Reset controls on the floating panel and in the menu bar dropdown
-- Auto-advance: breaks and focus sessions start automatically when a phase ends (on by default, can be disabled)
+**Timer**
+- Three phases: **Focus** (25 min) → **Short Break** (5 min) → **Long Break** (15 min) — all durations configurable
+- Automatic phase cycling: long break every N focus sessions (default 4)
+- Start / Pause / Skip / Reset from the panel or menu bar dropdown
+- Sessions advance automatically when a phase ends — on by default, can be disabled
 
-### Floating Panel
-- 220×220 pt transparent, always-on-top window — no title bar, no chrome
-- Circular progress ring, color-coded by phase (warm brown / sage green / slate blue)
-- Large monospaced MM:SS countdown in the center
-- Close button that fades in on hover; draggable by clicking anywhere in the panel
-- Panel position saved across launches
+**Floating Panel**
+- Transparent, always-on-top window — no title bar, no Dock icon
+- Circular progress ring color-coded by phase (warm brown / sage green / slate blue)
+- Large monospaced countdown in the center
+- X button fades in on hover; drag anywhere to reposition; position saved across launches
 
-### Forced Break Screen
-- When a focus session ends, a **full-screen overlay** covers every connected display (on by default, can be disabled)
-- Shows the break countdown centered on a blurred backdrop
-- Includes a **skip** button; skipping immediately starts the next focus session
-- Toggle on/off in Settings → Timer
+**Forced Break Screen**
+- Full-screen blurred overlay covers every connected display when a focus session ends — on by default, can be disabled in Settings → Timer
+- Shows only the break countdown — no distractions
+- **Skip** button immediately dismisses the overlay and starts the next focus session
 
-### Menu Bar
-- Timer icon and remaining time always visible in the menu bar
-- Dropdown shows current phase, remaining time, and Start/Pause/Reset/Skip actions
-- Quick access to **Open Timer Panel**, **Settings**, and **Quit**
+**Menu Bar**
+- Timer icon + remaining time always visible
+- Dropdown: current phase, time remaining, Start / Pause / Reset / Skip
+- Quick links: Open Panel · Settings · Quit
 
-### Global Hotkeys
+**Global Hotkeys**
 
 | Action | Default |
 |---|---|
-| Start / Pause | ⌃P |
-| Skip | ⌃⇧S |
-| Reset | ⌃R |
-| Show / Hide Panel | ⌃⌥P |
+| Start / Pause | `⌃P` |
+| Skip | `⌃⇧S` |
+| Reset | `⌃R` |
+| Show / Hide Panel | `⌃⌥P` |
 
-Work system-wide regardless of the focused app. Configurable in **Settings → Shortcuts**. Require App Sandbox to be disabled (already set).
-
-### Persistence
-- All data stored locally — no network calls
-- `settings.json`, `timer_snapshot.json`, `sessions.json` in `~/Library/Application Support/com.koki.PomodoroTimer/`
-- Timer state saved on quit; sessions that expired while the app was closed are silently completed on next launch
-- Atomic writes (write to temp → rename) prevent data corruption
+Work system-wide regardless of focused app. Configurable in Settings → Shortcuts.
 
 ---
 
@@ -53,7 +63,7 @@ Work system-wide regardless of the focused app. Configurable in **Settings → S
 
 - macOS 15.0+
 - Xcode 16+
-- [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
+- [XcodeGen](https://github.com/yonaskolb/XcodeGen) — `brew install xcodegen`
 
 ---
 
@@ -63,7 +73,7 @@ Work system-wide regardless of the focused app. Configurable in **Settings → S
 make install
 ```
 
-Builds a Release binary, installs it to `/Applications/`, and launches the app. No Dock icon — it runs entirely from the menu bar.
+Builds a Release binary, copies it to `/Applications/`, and launches the app.
 
 ```bash
 make uninstall   # remove from /Applications
@@ -72,8 +82,8 @@ make uninstall   # remove from /Applications
 ## Build from Source
 
 ```bash
-xcodegen generate          # generate PomodoroTimer.xcodeproj
-open PomodoroTimer.xcodeproj  # then ⌘R in Xcode
+xcodegen generate
+open PomodoroTimer.xcodeproj   # then ⌘R in Xcode
 ```
 
 ## Run Tests
@@ -103,7 +113,20 @@ xcodebuild test -scheme PomodoroTimer -destination 'platform=macOS'
 Displays current key bindings. Edit `hotkeyStartPause`, `hotkeySkip`, `hotkeyReset`, `hotkeyTogglePanel` directly in `settings.json` if needed (Carbon key code + modifier flags).
 
 ### Appearance tab
-System / Light / Dark theme selector (follows the floating panel).
+System / Light / Dark theme selector.
+
+---
+
+## Data & Privacy
+
+All data is stored locally — no network calls, no telemetry.
+
+| File | Location |
+|---|---|
+| `settings.json` | `~/Library/Application Support/com.koki.PomodoroTimer/` |
+| `timer_snapshot.json` | same |
+
+Timer state is saved on quit and restored on next launch. Atomic writes prevent data corruption.
 
 ---
 
@@ -111,7 +134,7 @@ System / Light / Dark theme selector (follows the floating panel).
 
 ```
 PomodoroTimer/
-  App/                      — @main entry (PomodoroTimerApp), AppDelegate (wires everything)
+  App/                      — @main entry, AppDelegate (wires everything)
   Models/                   — AppSettings, TimerState enums, Session, TimerSnapshot
   Core/
     TimerEngine/            — TimerEngine (date-diff countdown), SessionCycle (phase logic)
@@ -126,16 +149,18 @@ PomodoroTimer/
     Settings/               — SettingsView + Timer, Shortcuts, Appearance tabs
   Utilities/                — TimeFormatter, CSVExporter
   Resources/                — Info.plist, entitlements, Assets.xcassets
-PomodoroTimerTests/         — 26 unit tests (no TEST_HOST; sources compiled directly)
+PomodoroTimerTests/         — 26 unit tests
 ```
 
 **Timer accuracy** — stores the wall-clock start time and computes `remaining = remainingAtRunStart − elapsed` on each 0.5 s tick. Immune to CPU throttling, RunLoop stalls, and system sleep.
 
-**Break overlay** — `BreakOverlayController` iterates `NSScreen.screens` and creates one borderless `NSWindow` per display at `.screenSaverWindowLevel`, each backed by an `NSVisualEffectView`. Windows are rebuilt fresh on every `show()` so display configuration changes (connect/disconnect) are always reflected correctly.
+**Break overlay** — `BreakOverlayController` iterates `NSScreen.screens` and creates one borderless `NSWindow` per display at `.screenSaverWindowLevel`. Windows are rebuilt on every `show()` so display configuration changes are always reflected.
 
-**Global hotkeys** — Carbon `RegisterEventHotKey` API, the only macOS mechanism for truly system-wide shortcuts without requiring Accessibility permissions. Requires App Sandbox disabled (`ENABLE_APP_SANDBOX: NO` in `project.yml`).
+**Global hotkeys** — Carbon `RegisterEventHotKey` API. Requires App Sandbox disabled (`ENABLE_APP_SANDBOX: NO`).
 
-**Observable pattern** — `@Observable` (Swift Observation framework, not `ObservableObject`) throughout. `@MainActor` on all services and view models.
+**Observable pattern** — `@Observable` (Swift Observation framework) throughout. `@MainActor` on all services and view models.
+
+---
 
 ## License
 
