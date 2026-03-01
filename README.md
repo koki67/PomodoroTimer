@@ -30,13 +30,6 @@ A native macOS Pomodoro timer that lives in the menu bar. A small transparent fl
 - Dropdown shows current phase, remaining time, and Start/Pause/Reset/Skip actions
 - Quick access to **Open Timer Panel**, **Settings**, and **Quit**
 
-### Statistics
-- All sessions (focus and break, completed and skipped) are recorded automatically
-- **Charts**: bar chart with selectable periods — Day (7 days), Week (4 weeks), Month (12 months), Year (3 years)
-- **Session history**: scrollable list with phase, start time, duration, and completion status
-- **CSV export** to the Downloads folder
-- **Clear history** with confirmation dialog
-
 ### Global Hotkeys
 
 | Action | Default |
@@ -123,7 +116,6 @@ PomodoroTimer/
   Core/
     TimerEngine/            — TimerEngine (date-diff countdown), SessionCycle (phase logic)
     Services/               — PersistenceService, HotkeyService (Carbon), SleepWakeObserver
-    Stats/                  — StatsStore (in-memory), StatsAggregator (chart bucketing)
   ViewModels/               — TimerViewModel, SettingsViewModel, StatsViewModel
   WindowControllers/        — MenuBarController, MainPanelController,
                               BreakOverlayController, SettingsWindowController
@@ -132,7 +124,6 @@ PomodoroTimer/
     BreakOverlay/           — BreakOverlayView (countdown + skip)
     MenuBar/                — MenuBarInfoView (dropdown content)
     Settings/               — SettingsView + Timer, Shortcuts, Appearance tabs
-    Stats/                  — StatsView, StatsChartView, SessionHistoryView
   Utilities/                — TimeFormatter, CSVExporter
   Resources/                — Info.plist, entitlements, Assets.xcassets
 PomodoroTimerTests/         — 26 unit tests (no TEST_HOST; sources compiled directly)
