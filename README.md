@@ -10,7 +10,7 @@ A native macOS Pomodoro timer that lives in the menu bar. A small transparent fl
 - Three phases: **Focus** (25 min), **Short Break** (5 min), **Long Break** (15 min) — all durations configurable
 - Automatic phase cycling: short break after each focus session, long break every N sessions (default 4)
 - Start / Pause / Skip / Reset controls on the floating panel and in the menu bar dropdown
-- Optional auto-advance: start breaks or focus sessions automatically when a phase ends
+- Auto-advance: breaks and focus sessions start automatically when a phase ends (on by default, can be disabled)
 
 ### Floating Panel
 - 220×220 pt transparent, always-on-top window — no title bar, no chrome
@@ -20,7 +20,7 @@ A native macOS Pomodoro timer that lives in the menu bar. A small transparent fl
 - Panel position saved across launches
 
 ### Forced Break Screen
-- When a focus session ends, an **optional full-screen overlay** covers every connected display
+- When a focus session ends, a **full-screen overlay** covers every connected display (on by default, can be disabled)
 - Shows the break countdown centered on a blurred backdrop
 - Includes a **skip** button; skipping immediately starts the next focus session
 - Toggle on/off in Settings → Timer
@@ -102,9 +102,9 @@ xcodebuild test -scheme PomodoroTimer -destination 'platform=macOS'
 | Short break | 1–30 min | 5 min |
 | Long break | 5–60 min | 15 min |
 | Long break after N sessions | 2–8 | 4 |
-| Start breaks automatically | on/off | off |
-| Start focus automatically | on/off | off |
-| Cover screen at end of focus session | on/off | off |
+| Start breaks automatically | on/off | **on** |
+| Start focus automatically | on/off | **on** |
+| Cover screen at end of focus session | on/off | **on** |
 
 ### Shortcuts tab
 Displays current key bindings. Edit `hotkeyStartPause`, `hotkeySkip`, `hotkeyReset`, `hotkeyTogglePanel` directly in `settings.json` if needed (Carbon key code + modifier flags).

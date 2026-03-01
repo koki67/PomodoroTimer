@@ -48,14 +48,14 @@ struct AppSettings: Codable, Sendable {
 
     // MARK: Auto-advance
     /// Automatically start break timers after a focus session completes.
-    var autoStartBreaks: Bool   = false
+    var autoStartBreaks: Bool   = true
     /// Automatically start focus timer after a break session completes.
-    var autoStartFocus: Bool    = false
+    var autoStartFocus: Bool    = true
 
     // MARK: UI Behavior
     var themeMode: ThemeMode    = .system
     /// Cover the screen with a blurred overlay during break sessions.
-    var forceBreakScreenEnabled: Bool = false
+    var forceBreakScreenEnabled: Bool = true
 
     // MARK: Hotkeys
     var hotkeyStartPause:   HotkeySetting = .defaultStartPause
