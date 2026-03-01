@@ -1,6 +1,6 @@
 # PomodoroTimer
 
-> A minimal, native macOS Pomodoro timer that lives in the menu bar.
+> A minimal, silent, native macOS Pomodoro timer that stays out of your way.
 
 <p align="center">
   <img src=".github/assets/panel.png" width="220" alt="PomodoroTimer floating panel" />
@@ -16,9 +16,9 @@
 
 ## Overview
 
-A small transparent floating panel sits on top of all your windows, showing a circular progress ring and countdown. When a focus session ends, a full-screen blurred overlay takes over every connected display to enforce your break — no notifications, no distractions.
+Most Pomodoro apps interrupt you — with sounds, banners, badges, and popups. This one doesn't.
 
-No Dock icon. Runs entirely from the menu bar.
+A small transparent panel floats silently over your work, showing a circular ring and countdown. No noise. No notifications. No Dock icon. When a focus session ends, a full-screen blur quietly covers every display, giving your eyes a real break before automatically moving on. Everything is designed to be felt, not noticed.
 
 ---
 
