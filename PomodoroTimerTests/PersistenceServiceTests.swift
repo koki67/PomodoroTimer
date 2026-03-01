@@ -31,15 +31,11 @@ final class PersistenceServiceTests: XCTestCase {
         var settings = AppSettings()
         settings.focusDuration = 30 * 60
         settings.shortBreakDuration = 10 * 60
-        settings.ambientSoundEnabled = true
-        settings.selectedAmbientSound = .cafe
         service.saveSettings(settings)
 
         let loaded = service.loadSettings()
         XCTAssertEqual(loaded?.focusDuration, 30 * 60)
         XCTAssertEqual(loaded?.shortBreakDuration, 10 * 60)
-        XCTAssertTrue(loaded?.ambientSoundEnabled ?? false)
-        XCTAssertEqual(loaded?.selectedAmbientSound, .cafe)
     }
 
     func testLoadSettingsReturnsNilWhenNoFile() {
@@ -64,31 +60,6 @@ final class PersistenceServiceTests: XCTestCase {
         XCTAssertEqual(loaded?.completedFocusSessions, 2)
     }
 
-    // MARK: - Sessions
-
-    func testAppendAndLoadOneSesssion() {
-        let session = makeSession()
-        service.appendSession(session)
-        let loaded = service.loadAllSessions()
-        XCTAssertEqual(loaded.count, 1)
-        XCTAssertEqual(loaded[0].id, session.id)
-    }
-
-    func testAppendMultipleSessions() {
-        (0..<5).forEach { _ in service.appendSession(makeSession()) }
-        XCTAssertEqual(service.loadAllSessions().count, 5)
-    }
-
-    func testClearSessions() {
-        service.appendSession(makeSession())
-        service.clearAllSessions()
-        XCTAssertTrue(service.loadAllSessions().isEmpty)
-    }
-
-    func testLoadSessionsReturnsEmptyWhenNoFile() {
-        XCTAssertTrue(service.loadAllSessions().isEmpty)
-    }
-
     // MARK: - Atomic Write Integrity
 
     func testLastWriteWinsOnRapidSaves() {
@@ -97,38 +68,5 @@ final class PersistenceServiceTests: XCTestCase {
         service.saveSettings(s1)
         service.saveSettings(s2)
         XCTAssertEqual(service.loadSettings()?.focusDuration, 2700)
-    }
-
-    // MARK: - CSV Export
-
-    func testCSVExportFormat() {
-        let session = Session(
-            id: UUID(),
-            phase: .focus,
-            startedAt: Date(timeIntervalSince1970: 0),
-            duration: 1500,
-            completedAt: Date(timeIntervalSince1970: 1500),
-            wasCompleted: true
-        )
-        service.appendSession(session)
-        let csv = CSVExporter.export(service.loadAllSessions())
-        let lines = csv.components(separatedBy: "\n")
-        XCTAssertEqual(lines.first, "id,phase,startedAt,completedAt,plannedDurationSec,actualDurationSec,wasCompleted")
-        XCTAssertEqual(lines.count, 2)
-        XCTAssertTrue(lines[1].contains("Focus"))
-        XCTAssertTrue(lines[1].contains("true"))
-    }
-
-    // MARK: - Helpers
-
-    private func makeSession(phase: TimerPhase = .focus) -> Session {
-        Session(
-            id: UUID(),
-            phase: phase,
-            startedAt: Date(),
-            duration: 1500,
-            completedAt: Date().addingTimeInterval(1500),
-            wasCompleted: true
-        )
     }
 }

@@ -151,7 +151,7 @@ PomodoroTimer/
     BreakOverlay/           — BreakOverlayView (countdown + skip)
     MenuBar/                — MenuBarInfoView (dropdown content)
     Settings/               — SettingsView + Timer, Shortcuts, Appearance tabs
-  Utilities/                — TimeFormatter, CSVExporter
+  Utilities/                — TimeFormatter
   Resources/                — Info.plist, entitlements, Assets.xcassets
 PomodoroTimerTests/         — 26 unit tests
 ```

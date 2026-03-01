@@ -1,6 +1,6 @@
 import Foundation
 
-/// JSON-backed persistence for settings, timer snapshot, and session history.
+/// JSON-backed persistence for settings and timer snapshot.
 ///
 /// All files are stored in `~/Library/Application Support/<bundle-id>/`.
 /// Writes use `Data.write(options: .atomic)` to prevent partial-write corruption.
@@ -42,23 +42,6 @@ final class PersistenceService: Sendable {
 
     func loadTimerSnapshot() -> TimerSnapshot? {
         read(TimerSnapshot.self, from: "timer_snapshot.json")
-    }
-
-    // MARK: - Sessions
-
-    func appendSession(_ session: Session) {
-        var existing = loadAllSessions()
-        existing.append(session)
-        write(existing, to: "sessions.json")
-    }
-
-    func loadAllSessions() -> [Session] {
-        read([Session].self, from: "sessions.json") ?? []
-    }
-
-    func clearAllSessions() {
-        let url = baseURL.appendingPathComponent("sessions.json")
-        try? FileManager.default.removeItem(at: url)
     }
 
     // MARK: - Generic Helpers

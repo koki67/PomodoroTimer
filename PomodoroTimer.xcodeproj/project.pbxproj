@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		056EDAE825C1037B34295927 /* TimerSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290B891E3C9D9137841BCFB /* TimerSnapshot.swift */; };
-		0AF3DD0A495FB2B4F1E03295 /* rain.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 34908B221BE5337E0F256C44 /* rain.m4a */; };
-		154B6BF8C4D74FCB839D0BDC /* city_traffic.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A5DAE3803293450F314B8C52 /* city_traffic.m4a */; };
 		1E518AD2041F5CA0368DC1ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F71E9FF6D1DF94C13629E307 /* Assets.xcassets */; };
-		1E57BFDAFBD22E07A1C9FC73 /* airplane.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 129BD81E2A48EB35FDC7F739 /* airplane.m4a */; };
 		20588BB71B1208534673C561 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938EDCD7DB26774AE0CA6272 /* TimerState.swift */; };
 		256E5D957FAFFE51C9D6B78F /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938EDCD7DB26774AE0CA6272 /* TimerState.swift */; };
 		28DAFABAA5750168AB5D0AD7 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4389DEE58A4DF49F9B80AD1 /* TimerEngine.swift */; };
@@ -19,26 +16,21 @@
 		2EE18C5C300E3291BC703E6B /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC06FB7843A3F27A4EEFBA /* AppSettings.swift */; };
 		32A7C73EED9C44F5E0B59C40 /* TimerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27C3B9894C92D9236FF8D13 /* TimerSettingsView.swift */; };
 		47ECEF3FB7AF3918E218DF65 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7A6D2BB2FD41D131DEF67 /* PersistenceService.swift */; };
-		4FCD543B35431A5B35DADCA6 /* cafe.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DCA14DC3710F766D606A26F6 /* cafe.m4a */; };
 		50E8F7856C9DB87B3469CA1B /* MenuBarInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5E93DE72B9FCCB7E8190AE /* MenuBarInfoView.swift */; };
 		614E9E6636E5851D6D953053 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28229B18A7259FBE5FCAA32E /* TimerViewModel.swift */; };
 		6808F44D948F3801A2177503 /* PomodoroTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A277A9ADD7AA69221EA507F /* PomodoroTimerApp.swift */; };
 		6C80237655E659E6F669FCEF /* SessionCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A392DB4752D017018A95A5 /* SessionCycle.swift */; };
 		6C8E8AD49C2D0850F86970AA /* SleepWakeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FA2D8D02D6BFBC6EAA129B /* SleepWakeObserver.swift */; };
-		6CCA6AD3FF773539216336B7 /* CSVExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66986ED6FC2112DCC7FEC40E /* CSVExporter.swift */; };
 		73A1591A2F4067172202213C /* SessionCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A392DB4752D017018A95A5 /* SessionCycle.swift */; };
 		910F9B27D5AAC8D9735B78C3 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC041338B451386866E3B0CB /* SettingsWindowController.swift */; };
-		981798938731901E2B725815 /* river.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1110457F1FBB926DD9105B7C /* river.m4a */; };
 		A0CD31BA76EB4ACC00150059 /* PersistenceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9BB447BD3682B8E5FD0CE8 /* PersistenceServiceTests.swift */; };
 		A479180D2ACD32D27C3C19BE /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC06FB7843A3F27A4EEFBA /* AppSettings.swift */; };
 		A5BA01720A8093C0D7199AA1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93E33D4383D4CA0CA9242 /* Session.swift */; };
 		AA9FF839793BED4AC81F677E /* HotkeySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68816DD9AC664352C3719B24 /* HotkeySettingsView.swift */; };
 		ADA1A862BACB5AC2C84F498B /* TimerSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290B891E3C9D9137841BCFB /* TimerSnapshot.swift */; };
 		AE01F0A728F7F5460FE37F18 /* BreakOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D233BE92AA609FC645FB87B /* BreakOverlayView.swift */; };
-		AF0987714D4984620F5198C3 /* CSVExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66986ED6FC2112DCC7FEC40E /* CSVExporter.swift */; };
 		B370647F7893F75E1804D0A2 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEDC5FB9E90C5D6DB626BF9 /* TimeFormatter.swift */; };
 		B4CBAC26E30AA6A8399D4EB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33A01FAF05890ED5AE7C09 /* AppDelegate.swift */; };
-		B62EC3C85FC0EB4D7109DE6D /* crickets.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7FD092D5B646BFC3020BD353 /* crickets.m4a */; };
 		B83FF5337CD6270D93ED5E11 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F2D64287EA9F924B681F4 /* SettingsView.swift */; };
 		BB2C16D9FF95EA5D69EE1CCC /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93E33D4383D4CA0CA9242 /* Session.swift */; };
 		BC81E0A712EF0DE2FF3F3066 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7A6D2BB2FD41D131DEF67 /* PersistenceService.swift */; };
@@ -53,18 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1110457F1FBB926DD9105B7C /* river.m4a */ = {isa = PBXFileReference; path = river.m4a; sourceTree = "<group>"; };
-		129BD81E2A48EB35FDC7F739 /* airplane.m4a */ = {isa = PBXFileReference; path = airplane.m4a; sourceTree = "<group>"; };
 		1A07A6BB45233B2EEAFA0B5B /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		254F2D64287EA9F924B681F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		28229B18A7259FBE5FCAA32E /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
-		34908B221BE5337E0F256C44 /* rain.m4a */ = {isa = PBXFileReference; path = rain.m4a; sourceTree = "<group>"; };
 		61207DE8F8B4CA5E9FF2DF9F /* MainPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPanelView.swift; sourceTree = "<group>"; };
-		66986ED6FC2112DCC7FEC40E /* CSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExporter.swift; sourceTree = "<group>"; };
 		68816DD9AC664352C3719B24 /* HotkeySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeySettingsView.swift; sourceTree = "<group>"; };
 		68D41AE725D4491CBE4E5535 /* PomodoroTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PomodoroTimer.entitlements; sourceTree = "<group>"; };
 		7D233BE92AA609FC645FB87B /* BreakOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakOverlayView.swift; sourceTree = "<group>"; };
-		7FD092D5B646BFC3020BD353 /* crickets.m4a */ = {isa = PBXFileReference; path = crickets.m4a; sourceTree = "<group>"; };
 		8A277A9ADD7AA69221EA507F /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
 		8D4121038FE7FCFC70424658 /* PomodoroTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A392DB4752D017018A95A5 /* SessionCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCycle.swift; sourceTree = "<group>"; };
@@ -72,7 +59,6 @@
 		990AE4D040EC19357EA8CAFF /* PomodoroTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC82B9C0AF6729000C472CE /* BreakOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakOverlayController.swift; sourceTree = "<group>"; };
 		9C4F6509A27C3D9E5AC91C54 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
-		A5DAE3803293450F314B8C52 /* city_traffic.m4a */ = {isa = PBXFileReference; path = city_traffic.m4a; sourceTree = "<group>"; };
 		ABB93E33D4383D4CA0CA9242 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		AC041338B451386866E3B0CB /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
 		AFF7A6D2BB2FD41D131DEF67 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
@@ -83,7 +69,6 @@
 		D0DC06FB7843A3F27A4EEFBA /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		D4389DEE58A4DF49F9B80AD1 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		DABE95B546405DD7E629C8E6 /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
-		DCA14DC3710F766D606A26F6 /* cafe.m4a */ = {isa = PBXFileReference; path = cafe.m4a; sourceTree = "<group>"; };
 		E6550DBE5A230782E6EC2B37 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		ECEDC5FB9E90C5D6DB626BF9 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		EE5E93DE72B9FCCB7E8190AE /* MenuBarInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarInfoView.swift; sourceTree = "<group>"; };
@@ -110,7 +95,6 @@
 				3680C6E186F2B93567B398D4 /* MainPanel */,
 				B982A4E384D8419E0D9C3BF9 /* MenuBar */,
 				54E0EF1F9D70D0A5795BE265 /* Settings */,
-				C92C7F39968D169D6454E806 /* Stats */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -121,19 +105,6 @@
 				61207DE8F8B4CA5E9FF2DF9F /* MainPanelView.swift */,
 			);
 			path = MainPanel;
-			sourceTree = "<group>";
-		};
-		3CAF1EAE66AC92D59AD7D6BA /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				129BD81E2A48EB35FDC7F739 /* airplane.m4a */,
-				DCA14DC3710F766D606A26F6 /* cafe.m4a */,
-				A5DAE3803293450F314B8C52 /* city_traffic.m4a */,
-				7FD092D5B646BFC3020BD353 /* crickets.m4a */,
-				34908B221BE5337E0F256C44 /* rain.m4a */,
-				1110457F1FBB926DD9105B7C /* river.m4a */,
-			);
-			path = Sounds;
 			sourceTree = "<group>";
 		};
 		3FA0DA7826AEB279B9423534 /* TimerEngine */ = {
@@ -210,7 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				649B87A78F15E4EDD3105DA6 /* Services */,
-				CB89D8D11BB08198A0DA3D63 /* Stats */,
 				3FA0DA7826AEB279B9423534 /* TimerEngine */,
 			);
 			path = Core;
@@ -233,20 +203,6 @@
 			path = MenuBar;
 			sourceTree = "<group>";
 		};
-		C92C7F39968D169D6454E806 /* Stats */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Stats;
-			sourceTree = "<group>";
-		};
-		CB89D8D11BB08198A0DA3D63 /* Stats */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Stats;
-			sourceTree = "<group>";
-		};
 		D6B2FA9B2D5E2146A749E2DD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,7 +215,6 @@
 		F155EA230D6C3C55360CBD3B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3CAF1EAE66AC92D59AD7D6BA /* Sounds */,
 				F71E9FF6D1DF94C13629E307 /* Assets.xcassets */,
 				68D41AE725D4491CBE4E5535 /* PomodoroTimer.entitlements */,
 			);
@@ -269,7 +224,6 @@
 		F645EF7788EA8B3CD6534BA8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				66986ED6FC2112DCC7FEC40E /* CSVExporter.swift */,
 				ECEDC5FB9E90C5D6DB626BF9 /* TimeFormatter.swift */,
 			);
 			path = Utilities;
@@ -381,12 +335,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E518AD2041F5CA0368DC1ED /* Assets.xcassets in Resources */,
-				1E57BFDAFBD22E07A1C9FC73 /* airplane.m4a in Resources */,
-				4FCD543B35431A5B35DADCA6 /* cafe.m4a in Resources */,
-				154B6BF8C4D74FCB839D0BDC /* city_traffic.m4a in Resources */,
-				B62EC3C85FC0EB4D7109DE6D /* crickets.m4a in Resources */,
-				0AF3DD0A495FB2B4F1E03295 /* rain.m4a in Resources */,
-				981798938731901E2B725815 /* river.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +346,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EE18C5C300E3291BC703E6B /* AppSettings.swift in Sources */,
-				AF0987714D4984620F5198C3 /* CSVExporter.swift in Sources */,
 				47ECEF3FB7AF3918E218DF65 /* PersistenceService.swift in Sources */,
 				A0CD31BA76EB4ACC00150059 /* PersistenceServiceTests.swift in Sources */,
 				BB2C16D9FF95EA5D69EE1CCC /* Session.swift in Sources */,
@@ -419,7 +366,6 @@
 				D425374628FAE8EA5419CAFF /* AppearanceSettingsView.swift in Sources */,
 				C4F3016B8BABFBFF19B51A94 /* BreakOverlayController.swift in Sources */,
 				AE01F0A728F7F5460FE37F18 /* BreakOverlayView.swift in Sources */,
-				6CCA6AD3FF773539216336B7 /* CSVExporter.swift in Sources */,
 				D567D67F9F33C0314A72F7F7 /* HotkeyService.swift in Sources */,
 				AA9FF839793BED4AC81F677E /* HotkeySettingsView.swift in Sources */,
 				CA6213FB2419CC66DCBA4BC6 /* MainPanelController.swift in Sources */,
