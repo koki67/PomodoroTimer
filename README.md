@@ -145,3 +145,7 @@ PomodoroTimerTests/         — 26 unit tests (no TEST_HOST; sources compiled di
 **Global hotkeys** — Carbon `RegisterEventHotKey` API, the only macOS mechanism for truly system-wide shortcuts without requiring Accessibility permissions. Requires App Sandbox disabled (`ENABLE_APP_SANDBOX: NO` in `project.yml`).
 
 **Observable pattern** — `@Observable` (Swift Observation framework, not `ObservableObject`) throughout. `@MainActor` on all services and view models.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
