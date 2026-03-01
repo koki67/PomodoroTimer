@@ -41,6 +41,10 @@ No Dock icon. Runs entirely from the menu bar.
 - Shows only the break countdown — no distractions
 - **Skip** button immediately dismisses the overlay and starts the next focus session
 
+<p align="center">
+  <img src=".github/assets/break_overlay.png" width="600" alt="Forced break overlay" />
+</p>
+
 **Menu Bar**
 - Timer icon + remaining time always visible
 - Dropdown: current phase, time remaining, Start / Pause / Reset / Skip
