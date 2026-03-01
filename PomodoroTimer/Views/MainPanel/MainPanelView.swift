@@ -6,7 +6,8 @@ struct MainPanelView: View {
 
     let onClose: () -> Void
 
-    @State private var isHovering = false
+    @State private var showClose = false
+    @State private var hideTask: DispatchWorkItem?
 
     var body: some View {
         ZStack {
@@ -14,7 +15,17 @@ struct MainPanelView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.clear.contentShape(Rectangle()))
-        .onHover { isHovering = $0 }
+        .onHover { hovering in
+            if hovering {
+                hideTask?.cancel()
+                hideTask = nil
+                showClose = true
+            } else {
+                let work = DispatchWorkItem { showClose = false }
+                hideTask = work
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: work)
+            }
+        }
         .overlay(alignment: .topLeading) {
             Button { onClose() } label: {
                 Image(systemName: "xmark")
@@ -25,8 +36,8 @@ struct MainPanelView: View {
                     .padding(8)
             }
             .buttonStyle(.plain)
-            .opacity(isHovering ? 1 : 0)
-            .animation(.easeInOut(duration: 0.15), value: isHovering)
+            .opacity(showClose ? 1 : 0)
+            .animation(.easeInOut(duration: 0.15), value: showClose)
         }
     }
 }
